@@ -3,5 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $message = 'message';
+    return view('home' , compact('message'));
+});
+Route::get('/product', function () {
+    return view('product');
 });
