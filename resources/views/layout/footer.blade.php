@@ -4,7 +4,7 @@
 <div class="footer-nav-area" id="footerNav">
   <div class="suha-footer-nav">
     <ul class="h-100 d-flex align-items-center justify-content-between ps-0 d-flex rtl-flex-d-row-r">
-      <li><a href="home.html"><i class="ti ti-home"></i>خانه</a></li>
+      <li><a href="{{ route('home') }}"><i class="ti ti-home"></i>خانه</a></li>
       <li><a href="message.html"><i class="ti ti-message"></i>گفتگو</a></li>
       <li><a href="cart.html"><i class="ti ti-basket"></i>سبد خرید</a></li>
       <li><a href="settings.html"><i class="ti ti-settings"></i>تنظیمات</a></li>
