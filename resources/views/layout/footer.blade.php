@@ -8,7 +8,7 @@
       <li><a href="message.html"><i class="ti ti-message"></i>گفتگو</a></li>
       <li><a href="cart.html"><i class="ti ti-basket"></i>سبد خرید</a></li>
       <li><a href="settings.html"><i class="ti ti-settings"></i>تنظیمات</a></li>
-      <li><a href="pages.html"><i class="ti ti-heart"></i>موردعلاقه ها</a></li>
+      <li><a href="{{ route('wishlist') }}"><i class="ti ti-heart"></i>موردعلاقه ها</a></li>
     </ul>
   </div>
 </div>

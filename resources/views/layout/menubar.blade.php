@@ -20,7 +20,7 @@
             <li class="suha-dropdown-menu"><a href="#"><i class="ti ti-building-store"></i>فروشگاه</a>
                 <ul>
                     <li><a href="{{ route('home') }}">خانه</a></li>
-                    <li><a href="shop-list.html">منو محصولات</a></li>
+                    <li><a href="{{ route('category') }}">منو محصولات</a></li>
                     <li><a href="{{ route('product') }}">صفحه تک محصول</a></li>
                     <li><a href="featured-products.html">موردعلاقه ها</a></li>
                 </ul>
