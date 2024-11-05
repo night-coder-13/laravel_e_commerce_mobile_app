@@ -9,7 +9,7 @@
 @section('content')
     <!-- Internet Connection Status-->
     <div class="internet-connection-status" id="internetStatus"></div>
-    
+
     <div class="page-content-wrapper">
         <!-- Search Form-->
         @include('body.home.search')
@@ -74,10 +74,11 @@
         data-bs-delay="5000" data-bs-autohide="true">
         <div class="toast-body">
             <div class="content d-flex align-items-center mb-2"><img src="img/icons/icon-72x72.png" alt="">
-                <h6 class="mb-0">Add to Home Screen</h6>
+                <h6 class="mb-0">عضویت</h6>
                 <button class="btn-close ms-auto" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div><span class="mb-0 d-block">Click the<strong class="mx-1">Add to Home Screen</strong>button &amp; enjoy
-                it like a regular app.</span>
+            </div><span class="mb-0 d-block">بر روی دکمه عضویت کلیک کنید و از جدید ترین اخبار مطلع شوید</span>
+            <a class="btn btn-sm btn-warning mt-2" href="#">عضویت</a>
+
         </div>
     </div>
 @endsection

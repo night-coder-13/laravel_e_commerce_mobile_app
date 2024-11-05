@@ -3,7 +3,7 @@
 @section('title', 'فروشگاه ژیلا')
 
 @section('header')
-    @include('body.product.navbar')
+    @include('body.navbar')
 @endsection
 
 @section('content')
