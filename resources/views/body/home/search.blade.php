@@ -1,7 +1,7 @@
 <div class="container">
     <div class="search-form pt-3 rtl-flex-d-row-r">
       <form action="#" method="">
-        <input class="form-control" type="search" value="{{ $message }}" placeholder="جستجو در فروشگاه">
+        <input class="form-control" type="search" value="" placeholder="جستجو در فروشگاه">
         <button type="submit"><i class="ti ti-search"></i></button>
       </form>
       <!-- Alternative Search Options -->

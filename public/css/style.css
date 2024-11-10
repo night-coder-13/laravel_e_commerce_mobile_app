@@ -51,6 +51,7 @@ Created: December 15, 2019
 }
 
 body {
+  font-family: "Vazir", sans-serif !important;
   color: #0c0c0c;
   background-color: #ffffff;
   overflow-x: hidden;
@@ -62,7 +63,6 @@ body {
 
 body,
 html {
-  font-family: "Vazir", sans-serif !important;
   color: #747794;
   overflow-x: hidden;
   background-color: #f0f0f5;
