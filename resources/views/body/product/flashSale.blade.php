@@ -14,11 +14,11 @@
                 </ul>
             </div>
             <!-- Sales Volume-->
-            <div class="sales-volume text-end">
-                <p class="mb-1 font-weight-bold">82% فروش رفته</p>
+            <div class="sales-volume text-start">
+                <p class="mb-1 font-weight-bold">{{ salePercent($product->price, $product->sale_price) }}% تخفیف</p>
                 <div class="progress" style="height: 0.375rem;">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 82%;"
-                        aria-valuenow="82" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{ salePercent($product->price, $product->sale_price) }}%;"
+                        aria-valuenow="{{ salePercent($product->price, $product->sale_price) }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>

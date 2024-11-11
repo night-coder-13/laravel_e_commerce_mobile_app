@@ -5,6 +5,23 @@
 @section('header')
     @include('body.navbar')
 @endsection
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('.box-color-size').hide();
+            $('input[name="size"]').on('change', function() {
+                $('.mess-color-size').hide();
+
+                // ابتدا همه divها را پنهان کن
+                $('.box-color-size').hide();
+
+                // div مطابق با مقدار انتخاب شده را نمایش بده
+                var selectedValue = $(this).val();
+                $('#' + selectedValue).css('display', 'flex');
+            });
+        });
+    </script>
+@endsection
 
 @section('content')
     <!-- Internet Connection Status-->
@@ -15,12 +32,16 @@
         <div class="product-description pb-3">
             <!-- Product Title & Meta Data-->
             @include('body.product.title')
+            @if ($product->sale_price != 0 && checkSaleFrom($product->date_on_sale_from) && checkSaleTo($product->date_on_sale_to))
+                <!-- Flash Sale Panel-->
+                @include('body.product.flashSale')
+            @endif
+            {{-- {{ dd($sizes) }} --}}
+            @if ($product->sizes->isNotEmpty())
+                <!-- Selection Panel-->
+                @include('body.product.selection')
+            @endif
 
-            <!-- Flash Sale Panel-->
-            @include('body.product.flashSale')
-
-            <!-- Selection Panel-->
-            @include('body.product.selection')
 
             <!-- Add To Cart-->
             @include('body.product.addCart')
@@ -29,18 +50,8 @@
             <div class="p-specification bg-white mb-3 py-3">
                 <div class="container">
                     <h6>مشخصات</h6>
-                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها
-                        و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-                        کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.?</p>
-                    <ul class="mb-3 ps-3">
-                        <li><i class="ti ti-check me-1"></i> لورم ایپسوم متن سادگی نامفهوم از صنعت چاپ</li>
-                        <li><i class="ti ti-check me-1"></i> لورم ایپسوم متن ساختگی بااز صنعت چاپ</li>
-                        <li> <i class="ti ti-check me-1"></i> لورم ایپسوم متن</li>
-                        <li> <i class="ti ti-check me-1"></i> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</li>
-                    </ul>
-                    <p class="mb-0">وقتی ثروت‌ های بزرگ به دست برخی مردم می‌افتد در پرتو آن نیرومند می‌شوند و در سایهٔ
-                        نیرومندی و ثروت خیال می‌ کنند که می‌توانند در خارج از وطن خود زندگی نمایند و خوشبخت و سرافراز باشند
-                        ولی به زودی می‌ فهمند که اشتباه کرده‌ اند و عظمت هر ملتی بر روی خرابه‌ های وطن خودش می‌باشد و بس!?
+                    <p>
+                        {{ $product->description }}
                     </p>
                 </div>
             </div>
@@ -58,7 +69,7 @@
             </div>
             <div class="pb-3"></div>
             <!-- Related Products Slides-->
-           @include('body.product.relatedProducts')
+            @include('body.product.relatedProducts')
 
             <!-- Rating & Review Wrapper --><!-- Ratings Submit Form-->
             @include('body.product.commentsSubmit')

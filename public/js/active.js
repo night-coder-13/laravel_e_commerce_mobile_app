@@ -62,7 +62,7 @@
     if ($.fn.owlCarousel) {
         var flashSlide = $('.flash-sale-slide');
         flashSlide.owlCarousel({
-            items: 3,
+            items: 2,
             margin: 8,
             loop: true,
             autoplay: true,
@@ -72,6 +72,9 @@
             responsive: {
                 992: {
                     items: 4
+                },
+                765: {
+                    items: 3
                 }
             },
         })
@@ -102,9 +105,9 @@
         productslides.owlCarousel({
             items: 1,
             margin: 0,
-            loop: false,
+            loop: true,
             autoplay: true,
-            autoplayTimeout: 5000,
+            autoplayTimeout: 6000,
             dots: false,
             nav: true,
             navText: [('<i class="ti ti-chevron-left"></i>'), ('<i class="ti ti-chevron-right"></i>')]

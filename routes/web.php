@@ -1,18 +1,17 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+Route::get('test', function (){
+    return view('test');
+});
 
 Route::get('/', [HomeController::class , 'home'])->name('home');
+Route::get('/category/{category}', [HomeController::class , 'category'])->name('category');
 
-Route::get('/product', function () {
-    $pageTitle = 'جزئیات محصول';
-    return view('product' , compact('pageTitle'));
-})->name('product');
 
-Route::get('/category', function () {
-    return view('category');
-})->name('category');
+Route::get('/product/{id}', [ProductController::class, 'singel' ])->name('product');
 
 Route::get('/sub-category', function () {
     return view('subCategory');

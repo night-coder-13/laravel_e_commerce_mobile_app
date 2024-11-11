@@ -15,6 +15,7 @@
 <!-- All JavaScript Files-->
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/jquery.min.js') }}"></script>
+@yield('script')
 <script src="{{ asset('js/waypoints.min.js') }}"></script>
 <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
 <script src="{{ asset('js/owl.carousel.min.js') }}"></script>

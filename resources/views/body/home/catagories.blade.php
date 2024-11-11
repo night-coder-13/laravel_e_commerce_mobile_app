@@ -3,16 +3,7 @@
         <div class="row g-2 rtl-flex-d-row-r">
             <!-- Catagory Card -->
             @foreach ($categories as $item)
-                <div class="col-3">
-                    <div class="card catagory-card">
-                        <div class="card-body px-2">
-                            <a href="">
-                                <img src="{{ ImageUrl('categories/' . $item->primary_image) }}" alt="">
-                                <span>{{ $item->name }}</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <x-category :item="$item" />
             @endforeach
             <!-- Catagory Card -->
             <div class="col-3">

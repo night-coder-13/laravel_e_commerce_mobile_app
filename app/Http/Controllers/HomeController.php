@@ -23,4 +23,9 @@ class HomeController extends Controller
         // dd($offer , $salesProducts ,$popularityProducts);
         return view('home', compact('salesProducts' , 'popularityProducts' , 'collections' , 'categories' ,'offer'));
     }
+
+    public function category(Category $category){
+        $products = Product::where('status' , 1)->where('category_id' , $category->id)->paginate(9);
+        return view('category', compact('category' , 'products'));
+    }
 }

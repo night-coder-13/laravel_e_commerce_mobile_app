@@ -1,43 +1,4 @@
-/* ------------------------
-[Master Stylesheet]
 
-Template Name: Suha - Multipurpose Ecommerce Mobile HTML Template
-Template Author: Designing World
-Template Author URL: https://themeforest.net/user/designing-world
-Version: 3.2.0
-Last Updated: Jun 13, 2024
-Created: December 15, 2019
---------------------------
-
-[Table of Contents]
-    * Google Fonts
-    * Include Third Party CSS Library
-        + Bootstrap CSS
-        + Animate CSS
-        + Owl Carousel CSS
-        + Font Awesome CSS
-    * Template Mixins
-        + Miscellaneous
-    * Template Variables
-    * Template Responsive
-    * Main Styles
-        + Reboot CSS
-        + Shortcode CSS
-        + Preloader CSS
-        + Animation CSS
-        + Demo CSS
-        + Header CSS
-        + Hero CSS
-        + Home CSS
-        + Footer CSS
-        + CTA CSS
-        + Register CSS
-        + Contact CSS
-        + Dark Mode CSS
-
-# [font-family]
-'Poppins', sans-serif;
--------------------------- */
 /* Reboot CSS */
 @font-face {
   font-family: "Vazir";
@@ -49,7 +10,9 @@ Created: December 15, 2019
     url(./fonts/Vazir.ttf) format("truetype");
   /* Safari, Android, iOS */
 }
-
+/* .box-color-size{
+  display: none;
+} */
 body {
   font-family: "Vazir", sans-serif !important;
   color: #0c0c0c;
@@ -2442,6 +2405,7 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
   color: #020310;
   margin-bottom: 0.25rem;
   direction: ltr;
+  font-family: 'Vazir';
 }
 .flash-sale-card .sale-price img {
   width: 16px !important;
@@ -2981,7 +2945,7 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
 .product-title-meta-data::after {
   position: absolute;
   content: "";
-  background-image: url(img/core-img/curve.png);
+  background-image: url(http://localhost:8001/img/core-img/curve.png);
   top: -120px;
   width: 142px;
   height: 121px;
@@ -3007,6 +2971,18 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
   font-weight: 500;
   margin-bottom: 0.5rem;
   color: #ea4c62;
+}
+.product-description .price {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #4d4d4d;
+}
+.product-description .price img.dark {
+  display: none;
+}
+.product-description .price img.light {
+  display: inline-block;
 }
 .product-description .sale-price span {
   margin-left: 0.25rem;
@@ -3266,6 +3242,7 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
           flex: 0 0 40%;
   max-width: 40%;
   width: 40%;
+  direction: ltr;
 }
 .sales-offer-content .sales-volume .progress {
   border-radius: 100px;
@@ -4813,6 +4790,15 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
   background-color: #242644;
   border-color: #242644;
 }
+[theme-color=dark] .product-description .price {
+  color: #f0f0f5;
+}
+[theme-color=dark] .product-description .price img.dark {
+  display: inline-block;
+}
+[theme-color=dark] .product-description .price img.light {
+  display: none;
+}
 [theme-color=dark] .horizontal-product-card .product-description .product-title {
   color: #ffffff;
 }
@@ -4889,7 +4875,7 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
   background-color: #242644 !important;
 }
 [theme-color=dark] .product-title-meta-data::after {
-  background-image: url(img/core-img/curve2.png);
+  background-image: url(http://localhost:8001/core-img/curve2.png);
 }
 [theme-color=dark] .p-wishlist-share a {
   color: #ea4c62;

@@ -18,8 +18,9 @@
                 <div class="card flash-sale-card">
                     <div class="card-body">
                         <!-- Badge--><span class="badge rounded-pill badge-warning">ویژه</span>
-                        <a href="single-product.html"><img src="{{ ImageUrl('products/' . $item->primary_image) }}"
-                                alt=""><span class="product-title">{{ $item->name }}</span>
+                        <a href="{{ route('product', ['id' => $item->id]) }}">
+                            <img src="{{ ImageUrl('products/' . $item->primary_image) }}" alt="">
+                            <span class="product-title">{{ $item->name }}</span>
                             <p class="sale-price d-flex">
                                 <img src="{{ asset('img/toman_d.svg') }}" width="16px" class="light" alt="">
                                 <img src="{{ asset('img/toman_l.svg') }}" width="16px" class="dark" alt="">
