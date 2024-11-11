@@ -21,8 +21,13 @@ class ProductController extends Controller
                 return $group->pluck('color');
             });
         }
-
+        $SimilarProducts = Product::where('category_id' , $product->category_id)->where('id' , '!=' , $product->id)->paginate(6);
+        if($SimilarProducts->count() < 6){
+            $i = 6 - $SimilarProducts->count();
+            $p = Product::inRandomOrder()->where('id' , '!=' , $product->id)->take($i)->get();
+            $SimilarProducts = $SimilarProducts->merge($p);
+        }
         $pageTitle = $product->name;
-        return view('product', compact('product', 'pageTitle', 'sizes' ,'colorsWithoutSize'));
+        return view('product', compact('product', 'pageTitle', 'sizes' ,'colorsWithoutSize' , 'SimilarProducts'));
     }
 }

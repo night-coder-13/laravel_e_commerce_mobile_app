@@ -13,7 +13,8 @@
         <!-- Catagory Banner-->
         <div class="pt-3">
             <div class="container">
-                <div class="catagory-single-img" style="background-image: url('{{ ImageUrl('categories/' . $category->primary_image) }}')"></div>
+                <div class="catagory-single-img"
+                    style="background-image: url('{{ ImageUrl('categories/' . $category->primary_image) }}')"></div>
             </div>
         </div>
 
@@ -26,7 +27,11 @@
                 <div class="row g-2 rtl-flex-d-row-r">
                     <!-- Product Card -->
                     @foreach ($products as $item)
-                        <x-product :item="$item" />
+                        <div class="col-6 col-md-4">
+                            <div class="card product-card">
+                                <x-product :item="$item" />
+                            </div>
+                        </div>
                     @endforeach
                 </div>
             </div>

@@ -7,7 +7,11 @@
         <div class="row g-2">
             <!-- Product Card -->
             @foreach ($salesProducts as $item)
-                <x-product :item="$item" />
+                <div class="col-6 col-md-4">
+                    <div class="card product-card">
+                        <x-product :item="$item" />
+                    </div>
+                </div>
             @endforeach
 
         </div>

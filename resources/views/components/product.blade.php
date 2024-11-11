@@ -1,6 +1,5 @@
 <!-- Product Card -->
-<div class="col-6 col-md-4">
-    <div class="card product-card">
+
         <div class="card-body">
             @if ($item->sale_price != 0 && checkSaleFrom($item->date_on_sale_from) && checkSaleTo($item->date_on_sale_to))
                 <span class="badge rounded-pill badge-warning">ویژه</span>
@@ -29,5 +28,3 @@
             </div>
             <!-- Add to Cart --><a class="btn btn-primary btn-sm" href="#"><i class="ti ti-plus"></i></a>
         </div>
-    </div>
-</div>
