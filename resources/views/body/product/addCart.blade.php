@@ -1,13 +1,24 @@
 <div class="cart-form-wrapper bg-white mb-3 py-3">
     <div class="container">
-        <form class="cart-form" action="#" method="">
+        <form class="cart-form" action="{{ route('cart.add') }}" method="get">
             <div class="order-plus-minus d-flex align-items-center">
                 <div class="quantity-button-handler">-</div>
                 <input class="form-control cart-quantity-input" type="text" step="1"
-                    name="quantity" value="3">
+                    name="qty" value="1">
                 <div class="quantity-button-handler">+</div>
             </div>
+            <input type="hidden" name="product_id" value="{{ $product->id }}">
+            <input type="hidden" name="size" id="size--product">
+            <input type="hidden" name="color" id="color--product">
             <button class="btn btn-primary ms-3" type="submit">افزودن به سبد خرید</button>
+            <div class="text-danger">
+                @error('qty')
+                    {{ $message }}
+                @enderror
+                @error('product_id')
+                    {{ $message }}
+                @enderror
+            </div>
         </form>
     </div>
 </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,19 @@ Route::get('/category/{category}', [HomeController::class , 'category'])->name('
 
 
 Route::get('/product/{id}', [ProductController::class, 'singel' ])->name('product');
+Route::post('/comment', [ProductController::class, 'addComment' ])->name('comment.add');
+
+Route::prefix('cart')->group(function () {
+    Route::get('/', [CartController::class, 'index'])->name('cart.index');
+    Route::get('/increment', [CartController::class, 'increment'])->name('cart.increment');
+    Route::get('/decrement', [CartController::class, 'decrement'])->name('cart.decrement');
+    Route::get('/add', [CartController::class, 'add'])->name('cart.add');
+    Route::get('/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/clear', [CartController::class, 'clear'])->name('cart.clear');
+    Route::get('/check-coupon', [CartController::class, 'checkCoupon'])->name('cart.checkCoupon');
+
+});
+
 
 Route::get('/sub-category', function () {
     return view('subCategory');
@@ -22,10 +36,6 @@ Route::get('/wishlist', function () {
     return view('wishlist' , compact('pageTitle'));
 })->name('wishlist');
 
-Route::get('/cart', function () {
-    $pageTitle = 'سبد خرید';
-    return view('cart' , compact('pageTitle'));
-})->name('cart');
 
 Route::get('/checkout', function () {
     $pageTitle = 'صورت حساب';

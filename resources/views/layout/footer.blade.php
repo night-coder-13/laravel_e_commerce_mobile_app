@@ -6,7 +6,7 @@
     <ul class="h-100 d-flex align-items-center justify-content-between ps-0 d-flex rtl-flex-d-row-r">
       <li><a href="{{ route('home') }}"><i class="ti ti-home"></i>خانه</a></li>
       <li><a href="message.html"><i class="ti ti-message"></i>گفتگو</a></li>
-      <li><a href="{{ route('cart') }}"><i class="ti ti-basket"></i>سبد خرید</a></li>
+      <li><a href="{{ route('cart.index') }}"><i class="ti ti-basket"></i>سبد خرید</a></li>
       <li><a href="{{ route('settings') }}"><i class="ti ti-settings"></i>تنظیمات</a></li>
       <li><a href="{{ route('wishlist') }}"><i class="ti ti-heart"></i>علاقه‌مندی ها</a></li>
     </ul>

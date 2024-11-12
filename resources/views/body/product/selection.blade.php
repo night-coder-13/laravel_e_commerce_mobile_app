@@ -35,7 +35,7 @@
                     @foreach ($sizes as $key => $item)
                         <div class="form-check mb-0 me-2">
                             <input class="form-check-input" id="size{{ $key }}" type="radio" name="size"
-                                value="{{ $key }}">
+                                value="{{ $key }}" >
                             <label class="form-check-label" for="size{{ $key }}">{{ $key }}</label>
                         </div>
                     @endforeach

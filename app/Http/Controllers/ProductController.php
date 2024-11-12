@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\collections;
+use App\Models\Comment;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     public function singel($id)
     {
-        $product = Product::with(['category', 'collection', 'brand', 'images', 'sizes'])->findOrFail($id);
+        $product = Product::with(['category', 'collection', 'comments' , 'brand', 'sizes'])->findOrFail($id);
         // dd($product);
         $colorsWithoutSize = $product->sizes->whereNull('size')->pluck('color');
         $sizes = [];
@@ -28,6 +30,25 @@ class ProductController extends Controller
             $SimilarProducts = $SimilarProducts->merge($p);
         }
         $pageTitle = $product->name;
+        // dd();
         return view('product', compact('product', 'pageTitle', 'sizes' ,'colorsWithoutSize' , 'SimilarProducts'));
+    }
+
+    public function addComment(Request $request){
+        $request->validate([
+            'product_id' => 'required|numeric',
+            'rating' => 'required|numeric',
+            'comment' => 'required|string',
+        ]);
+        // if(Auth::check()){
+        //     return redirect()->route('home');
+        // }
+        Comment::create([
+            'user_id' => '1',
+            'product_id' => $request->product_id,
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+        ]);
+        return redirect()->route('product',['id'=>$request->product_id]);
     }
 }

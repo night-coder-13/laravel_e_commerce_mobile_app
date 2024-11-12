@@ -9,6 +9,7 @@
     <script>
         $(document).ready(function() {
             $('.box-color-size').hide();
+
             $('input[name="size"]').on('change', function() {
                 $('.mess-color-size').hide();
 
@@ -17,7 +18,13 @@
 
                 // div مطابق با مقدار انتخاب شده را نمایش بده
                 var selectedValue = $(this).val();
+                $('#size--product').val(selectedValue);
                 $('#' + selectedValue).css('display', 'flex');
+            });
+
+            $('input[name="color"]').on('change', function() {
+                var selectedValue = $(this).val();
+                $('#color--product').val(selectedValue);
             });
         });
     </script>
