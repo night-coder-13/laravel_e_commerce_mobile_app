@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\collections;
 use App\Models\Comment;
 use App\Models\Product;
+use App\Models\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,9 @@ class ProductController extends Controller
         // اطلاعات محصول در سبد خرید
         $cartItem = isset($cart[$product->id]) ? $cart[$product->id] : null;
 
-        return view('product', compact('product', 'pageTitle', 'sizes', 'colorsWithoutSize', 'similarProducts' , 'cartItem'));
+        $wishlistStatus = Wishlist::where('product_id', $product->id)->where('user_id', 1)->first();
+
+        return view('product', compact('product', 'pageTitle', 'sizes', 'colorsWithoutSize', 'similarProducts' , 'cartItem' , 'wishlistStatus'));
     }
 
     public function addComment(Request $request)

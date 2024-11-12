@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 Route::get('test', function (){
     return view('test');
@@ -23,7 +24,16 @@ Route::prefix('cart')->group(function () {
     Route::get('/remove', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/clear', [CartController::class, 'clear'])->name('cart.clear');
     Route::get('/check-coupon', [CartController::class, 'checkCoupon'])->name('cart.checkCoupon');
+    
+});
 
+Route::prefix('wishlist')->group(function () {
+    Route::get('/', [WishlistController::class, 'index'])->name('wishlist');
+    Route::get('/add', [WishlistController::class, 'add'])->name('wishlist.add');
+    Route::get('/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
+    Route::get('/clear', [WishlistController::class, 'clear'])->name('wishlist.clear');
+    Route::get('/add-to-cart', [WishlistController::class, 'addcart'])->name('wishlist.addcart');
+    
 });
 
 
@@ -31,10 +41,6 @@ Route::get('/sub-category', function () {
     return view('subCategory');
 })->name('subCategory');
 
-Route::get('/wishlist', function () {
-    $pageTitle = 'لیست علاقه‌مندی ها';
-    return view('wishlist' , compact('pageTitle'));
-})->name('wishlist');
 
 
 Route::get('/checkout', function () {

@@ -16,7 +16,15 @@
                 </p>
             @endif
         </div>
-        <div class="p-wishlist-share"><a href="wishlist-grid.html"><i class="ti ti-heart"></i></a></div>
+        <div class="p-wishlist-share">
+            <a href="{{ route('wishlist.add', ['id' => $product->id]) }}">
+                @if ($wishlistStatus)
+                    <i class="ti ti-heart-filled"></i>
+                @else
+                    <i class="ti ti-heart"></i>
+                @endif
+            </a>
+        </div>
     </div>
     <!-- Ratings-->
     <div class="product-ratings">

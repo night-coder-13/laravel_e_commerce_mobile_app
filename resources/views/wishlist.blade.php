@@ -18,7 +18,9 @@
                 </div>
                 <div class="row g-2">
                     <!-- Weekly Product Card -->
-                    <x-list-product />
+                    @foreach ($wishlists as $item)
+                        <x-list-product :id="$item->id" :item="$item->product" />
+                    @endforeach
                     
                     <!-- Select All Products-->
                     <div class="col-12">

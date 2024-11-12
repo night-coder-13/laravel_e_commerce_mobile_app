@@ -4847,7 +4847,7 @@ img.light {
   background-color: #242644 !important;
 }
 [theme-color=dark] .product-title-meta-data::after {
-  background-image: url(http://localhost:8001/core-img/curve2.png);
+  background-image: url(http://localhost:8001/img/core-img/curve2.png);
 }
 [theme-color=dark] .p-wishlist-share a {
   color: #ea4c62;
