@@ -2411,12 +2411,7 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
   width: 16px !important;
   margin-left:3px;
 }
-.flash-sale-card .sale-price img.dark {
-  display: none;
-}
-.flash-sale-card .sale-price img.light {
-  display: inline-block;
-}
+
 .flash-sale-card .real-price {
   display: inline-block;
   margin-left: 0.25rem;
@@ -2542,12 +2537,7 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
   width: 16px !important;
   margin-left:3px;
 }
-.product-card .sale-price img.dark{
-  display: none;
-}
-.product-card .sale-price img.light{
-  display: inline-block;
-}
+
 .product-card .sale-price span {
   color: #747794;
   margin-left: 0.25rem;
@@ -2729,12 +2719,7 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
   width: 16px !important;
   margin-left:3px;
 }
-.horizontal-product-card .product-description .sale-price img.light {
-  display: inline-block;
-}
-.horizontal-product-card .product-description .sale-price img.dark {
-  display: none;
-}
+
 .horizontal-product-card .product-description .sale-price i {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 1.25rem;
@@ -2972,11 +2957,11 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
   margin-bottom: 0.5rem;
   color: #ea4c62;
 }
-.p-title-price .sale-price img.dark {
-  display: none;
+img.dark {
+  display: none !important;
 }
-.p-title-price .sale-price img.light {
-  display: inline-block;
+img.light {
+  display: inline-block !important;
 }
 .product-description .price {
   font-size: 1.125rem;
@@ -2984,12 +2969,7 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
   margin-bottom: 0.5rem;
   color: #4d4d4d;
 }
-.product-description .price img.dark {
-  display: none;
-}
-.product-description .price img.light {
-  display: inline-block;
-}
+
 .product-description .sale-price span {
   margin-left: 0.25rem;
   color: #747794;
@@ -4629,10 +4609,10 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
 }
 
 [theme-color=dark] img.dark {
-  display: inline-block;
+  display: inline-block !important;
 }
 [theme-color=dark] img.light {
-  display: none;
+  display: none !important;
 }
 
 [theme-color=dark] .preview-iframe-wrapper {
@@ -4770,12 +4750,6 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
 [theme-color=dark] .flash-sale-card .sale-price {
   color: #ffffff;
 }
-[theme-color=dark] .flash-sale-card .sale-price img.dark{
-  display: inline-block;
-}
-[theme-color=dark] .flash-sale-card .sale-price img.light{
-  display: none;
-}
 [theme-color=dark] .product-card .product-title {
   color: #ffffff;
 }
@@ -4784,12 +4758,6 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
 }
 [theme-color=dark] .product-card .sale-price {
   color: #ffffff;
-}
-[theme-color=dark] .product-card .sale-price img.dark{
-  display: inline-block;
-}
-[theme-color=dark] .product-card .sale-price img.light{
-  display: none;
 }
 [theme-color=dark] .horizontal-product-card .product-thumbnail-side .product-thumbnail {
   background-color: #332858;
@@ -4807,18 +4775,7 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
 [theme-color=dark] .product-description .price {
   color: #f0f0f5;
 }
-[theme-color=dark] .product-description .price img.dark {
-  display: inline-block;
-}
-[theme-color=dark] .product-description .price img.light {
-  display: none;
-}
-[theme-color=dark] .p-title-price .sale-price img.dark {
-  display: inline-block;
-}
-[theme-color=dark] .p-title-price .sale-price img.light {
-  display: none;
-}
+
 [theme-color=dark] .horizontal-product-card .product-description .product-title {
   color: #ffffff;
 }
@@ -4831,12 +4788,7 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
 [theme-color=dark] .horizontal-product-card .product-description .sale-price {
   color: #ffffff;
 }
-[theme-color=dark] .horizontal-product-card .product-description .sale-price img.dark{
-  display: inline-block;
-}
-[theme-color=dark] .horizontal-product-card .product-description .sale-price img.light {
-  display: none;
-}
+
 [theme-color=dark] .featured-product-card .product-description .product-title {
   color: #ffffff;
 }

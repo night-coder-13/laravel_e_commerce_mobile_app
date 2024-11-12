@@ -26,5 +26,5 @@
             <div class="product-rating"><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i
                     class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i>
             </div>
-            <!-- Add to Cart --><a class="btn btn-primary btn-sm" href="#"><i class="ti ti-plus"></i></a>
+            <!-- Add to Cart --><a class="btn btn-primary btn-sm" href="{{ route('cart.increment' , ['product_id' => $item->id]) }}"><i class="ti ti-plus"></i></a>
         </div>

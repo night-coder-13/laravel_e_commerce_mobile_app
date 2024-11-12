@@ -14,27 +14,43 @@ class ProductController extends Controller
 {
     public function singel($id)
     {
-        $product = Product::with(['category', 'collection', 'comments' , 'brand', 'sizes'])->findOrFail($id);
-        // dd($product);
+        $product = Product::with(['category', 'collection', 'comments', 'brand', 'sizes'])->findOrFail($id);
+
+        // استخراج رنگ‌هایی که بدون سایز هستند
         $colorsWithoutSize = $product->sizes->whereNull('size')->pluck('color');
-        $sizes = [];
-        if ($colorsWithoutSize->isEmpty()) {
-            $sizes = $product->sizes->groupBy('size')->map(function ($group) {
-                return $group->pluck('color');
-            });
+
+        // استخراج سایزها و رنگ‌ها
+        $sizes = $product->sizes->whereNotNull('size')->groupBy('size')->map->pluck('color');
+
+        // دریافت محصولات مشابه
+        $similarProducts = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->inRandomOrder() //  برای به دست آوردن نتایج تصادفی
+            ->take(6)
+            ->get();
+
+        // در صورتی که تعداد محصولات مشابه کمتر از 6 بود، محصولات تصادفی را اضافه می‌کنیم
+        if ($similarProducts->count() < 6) {
+            $additionalProducts = Product::inRandomOrder()
+                ->where('id', '!=', $product->id)
+                ->take(6 - $similarProducts->count())
+                ->get();
+
+            $similarProducts = $similarProducts->merge($additionalProducts);
         }
-        $SimilarProducts = Product::where('category_id' , $product->category_id)->where('id' , '!=' , $product->id)->paginate(6);
-        if($SimilarProducts->count() < 6){
-            $i = 6 - $SimilarProducts->count();
-            $p = Product::inRandomOrder()->where('id' , '!=' , $product->id)->take($i)->get();
-            $SimilarProducts = $SimilarProducts->merge($p);
-        }
+
         $pageTitle = $product->name;
-        // dd();
-        return view('product', compact('product', 'pageTitle', 'sizes' ,'colorsWithoutSize' , 'SimilarProducts'));
+
+        // بررسی برای اینکه آیا محصول در سبد خرید موجود هست یا نه
+        $cart = session()->get('cart', []);
+        // اطلاعات محصول در سبد خرید
+        $cartItem = isset($cart[$product->id]) ? $cart[$product->id] : null;
+
+        return view('product', compact('product', 'pageTitle', 'sizes', 'colorsWithoutSize', 'similarProducts' , 'cartItem'));
     }
 
-    public function addComment(Request $request){
+    public function addComment(Request $request)
+    {
         $request->validate([
             'product_id' => 'required|numeric',
             'rating' => 'required|numeric',
@@ -49,6 +65,6 @@ class ProductController extends Controller
             'rating' => $request->rating,
             'comment' => $request->comment,
         ]);
-        return redirect()->route('product',['id'=>$request->product_id]);
+        return redirect()->route('product', ['id' => $request->product_id]);
     }
 }
