@@ -16,8 +16,8 @@
                 @if ($wishlists->isEmpty())
                     <div class=" py-3 d-flex align-items-center justify-content-center">
                         <div class=" text-center mt-5">
-                            <i class="ti ti-close"></i>
-                            <h6> !لیست علاقه‌مندی ها خالی است </h6>
+                            <i class="ti ti-mood-sad" style="font-size: 8rem;"></i>
+                            <h6 class="mt-2"> !لیست علاقه‌مندی ها خالی است </h6>
                             <a class="btn btn-primary btn-sm mt-3" href="{{ route('home') }}">بازگشت به صفحه‌اصلی</a>
                         </div>
                     </div>

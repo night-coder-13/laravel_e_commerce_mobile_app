@@ -6,7 +6,7 @@
 
 @if (session('success'))
     <div class="toast pwa-install-alert bg-success shadow" role="alert" aria-live="assertive" aria-atomic="true"
-        data-bs-delay="50000" data-bs-autohide="true">
+        data-bs-delay="4000" data-bs-autohide="true">
         <div class="toast-body">
             <div class="content d-flex align-items-center mb-2">
                 <span class="mb-0 d-block col-11 text-white">{{ session('success') }}</span>
@@ -18,7 +18,7 @@
 @endif
 @if (session('error'))
     <div class="toast pwa-install-alert bg-danger shadow" role="alert" aria-live="assertive" aria-atomic="true"
-        data-bs-delay="5000" data-bs-autohide="true">
+        data-bs-delay="4000" data-bs-autohide="true">
         <div class="toast-body">
             <div class="content d-flex align-items-center mb-2">
                 <span class="mb-0 d-block col-11 text-white">{{ session('error') }}</span>
