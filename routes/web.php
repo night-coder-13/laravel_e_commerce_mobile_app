@@ -14,6 +14,7 @@ Route::get('test', function () {
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/category/{category}', [HomeController::class, 'category'])->name('category');
+Route::get('/collection/{collection}', [HomeController::class, 'collection'])->name('collection');
 
 Route::get('/login', [AuthController::class, 'loginForm'])->name('auth.login.form');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');

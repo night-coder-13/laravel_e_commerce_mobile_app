@@ -29,4 +29,9 @@ class HomeController extends Controller
         $products = Product::where('status' , 1)->where('category_id' , $category->id)->paginate(9);
         return view('category.index', compact('category' , 'products'));
     }
+
+    public function collection(collections $collection){
+        $products = Product::where('status' , 1)->where('collection_id' , $collection->id)->paginate(9);
+        return view('collection.index', compact('collection' , 'products'));
+    }
 }

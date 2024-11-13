@@ -7,9 +7,8 @@
         <!-- Collection Slide-->
         <div class="collection-slide owl-carousel">
             <!-- Collection Card-->
-            {{-- {{ dd($collections) }} --}}
             @foreach ($collections as $item)
-                <div class="card collection-card"><a href="single-product.html">
+                <div class="card collection-card"><a href="{{ route('collection',['collection' => $item->id]) }}">
                         <img src="{{ ImageUrl('collections/' . $item->primary_image) }}" alt=""></a>
                     <div class="collection-title"><span>{{ $item->name }}</span><span class="badge bg-danger">9</span></div>
                 </div>

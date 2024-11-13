@@ -46,7 +46,7 @@
                     <!-- Cart Amount Area-->
                     <div class="card cart-amount-area">
                         <div class="card-body d-flex align-items-center justify-content-between">
-                            <h5 class="total-price mb-0"> <span class="">ریال</span> <span
+                            <h5 class="total-price mb-0"> <span class=""> تومان </span> <span
                                     class="counter">{{ number_format($cart_total_price) }}</span></h5><a
                                 class="btn btn-primary" href="checkout.html">صورت حساب</a>
                         </div>
