@@ -49,7 +49,7 @@ class ProductController extends Controller
 
         $wishlistStatus = Wishlist::where('product_id', $product->id)->where('user_id', 1)->first();
 
-        return view('product', compact('product', 'pageTitle', 'sizes', 'colorsWithoutSize', 'similarProducts' , 'cartItem' , 'wishlistStatus'));
+        return view('product.index', compact('product', 'pageTitle', 'sizes', 'colorsWithoutSize', 'similarProducts' , 'cartItem' , 'wishlistStatus'));
     }
 
     public function addComment(Request $request)

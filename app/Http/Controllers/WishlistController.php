@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
     public function index()
     {
+        if (Auth::check()) {
+            dd(Auth::user());
+        } else {
+            dd();
+        }
+        
         // login
         $wishlists = Wishlist::where('user_id', 1)->get();
         $pageTitle = 'لیست علاقه‌مندی ها';
-        return view('wishlist', compact('wishlists' ,'pageTitle'));
+        return view('wishlist.index', compact('wishlists' ,'pageTitle'));
     }
     public function add(Request $request)
     {

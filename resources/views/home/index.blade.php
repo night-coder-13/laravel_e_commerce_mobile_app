@@ -3,7 +3,7 @@
 @section('title', 'فروشگاه ژیلا')
 
 @section('header')
-    @include('body.home.navbar')
+    @include('home.body.navbar')
 @endsection
 
 @section('content')
@@ -12,16 +12,16 @@
 
     <div class="page-content-wrapper">
         <!-- Search Form-->
-        @include('body.home.search')
+        @include('home.body.search')
 
         <!-- Hero Wrapper -->
-        @include('body.home.heroWapper')
+        @include('home.body.heroWapper')
 
         <!-- Product Catagories -->
-        @include('body.home.catagories')
+        @include('home.body.catagories')
 
         <!-- Flash Sale Slide -->
-        @include('body.home.flashSaleSlide')
+        @include('home.body.flashSaleSlide')
         <!-- Dark Mode -->
         <div class="container">
             <div class="dark-mode-wrapper mt-3 bg-img p-4 p-lg-5">
@@ -33,7 +33,7 @@
             </div>
         </div>
         <!-- Top Products -->
-        @include('body.home.topProducts')
+        @include('home.body.topProducts')
 
         <!-- CTA Area -->
         <div class="container">
@@ -47,7 +47,7 @@
             </div>
         </div>
         <!-- Weekly Best Sellers-->
-        @include('body.home.weeklyBestSellers')
+        @include('home.body.weeklyBestSellers')
 
         <!-- Discount Coupon Card-->
         <div class="container">
@@ -63,8 +63,8 @@
             </div>
         </div>
         <!-- Featured Products Wrapper-->
-        {{-- @include('body.home.featuredProductsWrapper') --}}
-        @include('body.home.collections')
+        {{-- @include('home.body.featuredProductsWrapper') --}}
+        @include('home.body.collections')
 
 
     </div>

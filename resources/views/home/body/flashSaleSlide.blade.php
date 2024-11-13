@@ -4,12 +4,12 @@
             <h6 class="d-flex align-items-center rtl-flex-d-row-r"><i
                     class="ti ti-bolt-lightning me-1 text-danger lni-flashing-effect"></i>فروش ویژه</h6>
             <!-- Please use event time this format: YYYY/MM/DD hh:mm:ss -->
-            <ul class="sales-end-timer ps-0 d-flex align-items-center rtl-flex-d-row-r"
+            {{-- <ul class="sales-end-timer ps-0 d-flex align-items-center rtl-flex-d-row-r"
                 data-countdown="2024/12/31 14:21:59">
                 <li><span class="days">0</span>روز</li>
                 <li><span class="hours">0</span>ساعت</li>
                 <li><span class="minutes">0</span>دقیقه</li>
-            </ul>
+            </ul> --}}
         </div>
         <!-- Flash Sale Slide-->
         <div class="flash-sale-slide owl-carousel">

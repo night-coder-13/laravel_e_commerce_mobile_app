@@ -3,7 +3,7 @@
 @section('title', 'علاقه‌مندی ها')
 
 @section('header')
-    @include('body.navbar')
+    @include('wishlist.navbar')
 @endsection
 
 @section('content')

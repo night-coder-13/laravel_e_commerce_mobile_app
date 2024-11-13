@@ -3,7 +3,7 @@
 @section('title', 'فروشگاه ژیلا')
 
 @section('header')
-    @include('body.navbar')
+    @include('product.navbar')
 @endsection
 @section('script')
     <script>
@@ -34,24 +34,24 @@
     <!-- Internet Connection Status-->
     <div class="internet-connection-status" id="internetStatus"></div>
     <div class="page-content-wrapper">
-        @include('body.product.slider')
+        @include('product.product.slider')
 
         <div class="product-description pb-3">
             <!-- Product Title & Meta Data-->
-            @include('body.product.title')
+            @include('product.product.title')
             @if ($product->sale_price != 0 && checkSaleFrom($product->date_on_sale_from) && checkSaleTo($product->date_on_sale_to))
                 <!-- Flash Sale Panel-->
-                @include('body.product.flashSale')
+                @include('product.product.flashSale')
             @endif
             {{-- {{ dd($sizes) }} --}}
             @if ($product->sizes->isNotEmpty())
                 <!-- Selection Panel-->
-                @include('body.product.selection')
+                @include('product.product.selection')
             @endif
 
 
             <!-- Add To Cart-->
-            @include('body.product.addCart')
+            @include('product.product.addCart')
 
             <!-- Product Specification-->
             <div class="p-specification bg-white mb-3 py-3">
@@ -76,10 +76,10 @@
             </div>
             <div class="pb-3"></div>
             <!-- Related Products Slides-->
-            @include('body.product.relatedProducts')
+            @include('product.product.relatedProducts')
 
             <!-- Rating & Review Wrapper --><!-- Ratings Submit Form-->
-            @include('body.product.commentsSubmit')
+            @include('product.product.commentsSubmit')
         </div>
     </div>
 @endsection
