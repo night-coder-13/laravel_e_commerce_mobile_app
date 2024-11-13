@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,8 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/category/{category}', [HomeController::class, 'category'])->name('category');
 
 Route::get('/login', [AuthController::class, 'loginForm'])->name('auth.login.form');
+Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/login-guest', [AuthController::class, 'loginGuest'])->name('auth.login.guest');
 
 
@@ -22,6 +25,12 @@ Route::get('/product/{id}', [ProductController::class, 'singel'])->name('product
 Route::post('/comment', [ProductController::class, 'addComment'])->name('comment.add');
 
 Route::middleware('auth')->group(function () {
+    Route::prefix('profile')->group(function (){
+        Route::get('/', [ProfileController::class , 'index'])->name('profile');
+        Route::get('/edit', [ProfileController::class , 'edit'])->name('profile.edit');
+        Route::put('/update', [ProfileController::class , 'update'])->name('profile.update');
+        
+    });
 
     Route::prefix('cart')->group(function () {
         Route::get('/', [CartController::class, 'index'])->name('cart.index');
@@ -67,12 +76,3 @@ Route::get('/notifications', function () {
     $pageTitle = 'پیام ها';
     return view('notifications', compact('pageTitle'));
 })->name('notifications');
-
-Route::get('/profile', function () {
-    $pageTitle = 'پروفایل';
-    return view('profile.profile', compact('pageTitle'));
-})->name('profile');
-Route::get('/edit-profile', function () {
-    $pageTitle = 'ویرایش پروفایل';
-    return view('profile.edit', compact('pageTitle'));
-})->name('profile.edit');

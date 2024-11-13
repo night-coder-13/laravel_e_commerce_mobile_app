@@ -15,14 +15,25 @@
                 <div class="col-10 col-lg-8"><img class="big-logo" src="img/core-img/logo-white.png" alt="">
                     <!-- Register Form-->
                     <div class="register-form mt-5">
-                        <form action="home.html" method="">
+                        <form action="{{ route('auth.login') }}" method="POST">
+                            @csrf
                             <div class="form-group text-start mb-4"><span>نام کاربری</span>
                                 <label for="username"><i class="ti ti-user"></i></label>
-                                <input class="form-control" id="username" type="text" placeholder="info@example.com">
+                                <input class="form-control" name="email" id="username" type="email" value="{{ old('email') }}" placeholder="info@example.com">
+                                @error('email')
+                                    <p class="text-warning float-end">
+                                        {{ $message }}
+                                    </p><br>
+                                @enderror
                             </div>
                             <div class="form-group text-start mb-4"><span>گذرواژه</span>
                                 <label for="password"><i class="ti ti-key"></i></label>
-                                <input class="form-control" id="password" type="password" placeholder="Password">
+                                <input class="form-control" id="password" name="password" type="password" placeholder="123...">
+                                @error('password')
+                                    <p class="text-warning float-end">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                             </div>
                             <button class="btn btn-warning btn-lg w-100" type="submit">ورود</button>
                         </form>

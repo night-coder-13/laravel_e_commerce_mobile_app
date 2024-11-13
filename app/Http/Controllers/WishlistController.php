@@ -11,14 +11,7 @@ class WishlistController extends Controller
 {
     public function index()
     {
-        if (Auth::check()) {
-            dd(Auth::user());
-        } else {
-            dd();
-        }
-        
-        // login
-        $wishlists = Wishlist::where('user_id', 1)->get();
+        $wishlists = Wishlist::where('user_id', Auth::user()->id)->get();
         $pageTitle = 'لیست علاقه‌مندی ها';
         return view('wishlist.index', compact('wishlists' ,'pageTitle'));
     }
@@ -26,8 +19,7 @@ class WishlistController extends Controller
     {
         $product = Product::findOrFail($request->id);
 
-        // if login
-        $item = Wishlist::where('product_id', $request->id)->where('user_id', 1)->first();
+        $item = Wishlist::where('product_id', $request->id)->where('user_id', Auth::user()->id)->first();
         if (!$item) {
             Wishlist::create([
                 'product_id' => $request->id,

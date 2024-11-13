@@ -3,7 +3,7 @@
 @section('title', 'دسته بندی محصولات')
 
 @section('header')
-    @include('body.navbar')
+    @include('home.navbar')
 @endsection
 
 @section('content')

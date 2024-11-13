@@ -27,6 +27,5 @@
 <script src="{{ asset('js/theme-switching.js') }}"></script>
 <script src="{{ asset('js/no-internet.js') }}"></script>
 <script src="{{ asset('js/active.js') }}"></script>
-<script src="{{ asset('js/pwa.js') }}"></script>
 </body>
 </html>

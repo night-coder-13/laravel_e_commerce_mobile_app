@@ -5190,6 +5190,10 @@ img.light {
   margin-right: 0;
   margin-left: 0.5rem;
 }
+[view-mode=rtl] .pwa-install-alert .toast-body .content span {
+  direction: rtl;
+  margin-right: 3px;
+}
 [view-mode=rtl] .cart-quantity-input {
   text-align: center;
 }

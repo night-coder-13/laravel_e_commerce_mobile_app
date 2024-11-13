@@ -3,7 +3,7 @@
 @section('title', 'ژیلا | صندوق پیام')
 
 @section('header')
-    @include('body.navbar')
+    @include('home.navbar')
 @endsection
 
 @section('content')
