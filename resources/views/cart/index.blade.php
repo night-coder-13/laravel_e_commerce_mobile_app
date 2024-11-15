@@ -35,20 +35,62 @@
                                 <h6 class="mb-0">کد تخفیف دارید؟</h6>
                                 <p class="mb-2">کد تخفیف خودرا وارد کنید!</p>
                                 <div class="coupon-form">
-                                    <form action="#">
-                                        <input class="form-control" type="text" placeholder="SUHA30">
+                                    <form action="{{ route('cart.checkCoupon') }}">
+                                        <input class="form-control" name="code" value="{{ old('code') }}"
+                                            type="text" placeholder="SUHA30">
                                         <button class="btn btn-primary" type="submit">ثبت</button>
                                     </form>
+                                    <p class="text-danger">
+                                        @error('code')
+                                            {{ $message }}
+                                        @enderror
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Cart Amount Area-->
                     <div class="card cart-amount-area">
+                        @php
+                            $coupnPrice = 0;
+                            if (request()->session()->has('coupon') && request()->session()->get('coupon') !== []) {
+                                $coupon = request()->session()->get('coupon');
+                                $couponCode = $coupon['code'];
+                                $couponPercent = $coupon['percent'];
+                                $coupnPrice = ($cart_total_price * $couponPercent) / 100;
+                            }
+                        @endphp
+
+                        @if ($coupnPrice != 0)
+                            <div class="card-body ">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span class="text-end">کد تخفیف</span>
+                                        <span class="text-start">{{ $couponCode }} 
+                                            <a href="{{ route('cart.removeCoupon') }}" class="btn btn-sm btn-danger">حذف کد</a>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span class="text-end">مبلغ تخفیف</span>
+                                        <span class="text-start">{{ number_format($coupnPrice) }} تومان</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span class="text-end">مبلغ بدون تخفیف</span>
+                                        <span class="text-start">{{ number_format($cart_total_price) }} تومان</span>
+                                    </li>
+                                </ul>
+                               
+                            </div>
+                        @endif
                         <div class="card-body d-flex align-items-center justify-content-between">
-                            <h5 class="total-price mb-0"> <span class=""> تومان </span> <span
-                                    class="counter">{{ number_format($cart_total_price) }}</span></h5><a
-                                class="btn btn-primary" href="checkout.html">صورت حساب</a>
+                            <h6 class="total-price mb-0">
+                                <span class=""> قابل پرداخت : </span>
+                                <img src="{{ asset('img/toman_d.svg') }}" width="16px" class="light" alt="">
+                                <img src="{{ asset('img/toman_l.svg') }}" width="16px" class="dark" alt="">
+                                <span class="counter">
+                                    {{ number_format($cart_total_price - $coupnPrice) }}</span>
+                            </h6>
+                            <a class="btn btn-primary" href="">صورت حساب</a>
                         </div>
                     </div>
                 </div>

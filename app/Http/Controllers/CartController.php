@@ -20,7 +20,8 @@ class CartController extends Controller
         $cart_total_price = 0;
         if (isset($cart)) {
             foreach ($cart as $key => $item) {
-                $price = $item['is_sale'] ? $item['sale_price'] : $item['price'];
+                $price = $item['sale_price'] != 0 && checkSaleFrom($item['date_on_sale_from']) && checkSaleTo($item['date_on_sale_to'])
+                    ? $item['sale_price'] : $item['price'];
                 $cart_total_price += $price * $item['qty'];
             }
         }
@@ -31,11 +32,11 @@ class CartController extends Controller
         $request->validate([
             'product_id' => 'required|integer|exists:products,id'
         ]);
-        
+
         $product = Product::findOrFail($request->product_id);
-        
+
         $cart = $request->session()->get('cart', []);
-        
+
         // بررسی اینکه آیا محصول در سبد خرید موجود است و تعداد آن بیشتر از موجودی نیست
         if (isset($cart[$request->product_id])) {
             if ($cart[$request->product_id]['qty'] >= $product->quantity) {
@@ -48,7 +49,7 @@ class CartController extends Controller
                 'name' => $product->name,
                 'slug' => $product->slug,
                 'quantity' => $product->quantity,
-                'is_sale' => $product->is_sale,
+                // 'is_sale' => $product->is_sale,
                 'price' => $product->price,
                 'sale_price' => $product->sale_price,
                 'primary_image' => $product->primary_image,
@@ -57,12 +58,11 @@ class CartController extends Controller
                 'qty' => 1
             ];
         }
-        
+
         // به‌روزرسانی سبد خرید در جلسه
         $request->session()->put('cart', $cart);
-        
+
         return redirect()->back()->with('success', 'محصول "' . $product->name . '" به سبد خرید اضافه شد.');
-        
     }
     // public function decrement(Request $request)
     // {
@@ -85,7 +85,7 @@ class CartController extends Controller
     //             "name" => $product->name,
     //             "slug" => $product->slug,
     //             "quantity" => $product->quantity,
-    //             "is_sale" => $product->is_sale,
+    //            // "is_sale" => $product->is_sale,
     //             "price" => $product->price,
     //             "sale_price" => $product->sale_price,
     //             "primary_image" => $product->primary_image,
@@ -148,7 +148,7 @@ class CartController extends Controller
             "name" => $product->name,
             "slug" => $product->slug,
             "quantity" => $product->quantity,
-            "is_sale" => $product->is_sale,
+            // "is_sale" => $product->is_sale,
             "price" => $product->price,
             "sale_price" => $product->sale_price,
             "primary_image" => $product->primary_image,
@@ -180,23 +180,29 @@ class CartController extends Controller
     //     $request->session()->put('cart', []);
     //     return redirect()->route('menu.index')->with('warning', 'سبد خرید شما خالی شد');
     // }
-    // public function checkCoupon(Request $request)
-    // {
-    //     $request->validate([
-    //         'code' => 'required|string',
-    //     ]);
 
-    //     $coupon = Coupon::where('code', $request->code)->where('expired_at', '>', Carbon::now())->first();
+    public function checkCoupon(Request $request)
+    {
+        $request->validate([
+            'code' => 'required|string|uppercase',
+        ]);
 
-    //     if ($coupon == null) {
-    //         return redirect()->route('cart.index')->withErrors(['code' => 'کد تخفیف وارد شده وجود ندارد']);
-    //     }
+        $coupon = Coupon::where('code', $request->code)->where('expired_at', '>', Carbon::now())->first();
 
-    //     if (Order::where('user_id', Auth::id())->where('coupon_id', $coupon->id)->where('payment_status', 1)->exists()) {
-    //         return redirect()->route('cart.index')->withErrors(['code' => 'شما قبلا از این کد تخفیف استفاده کرده اید']);
-    //     }
+        if ($coupon == null) {
+            return redirect()->route('cart.index')->withErrors(['code' => 'کد تخفیف وارد شده وجود ندارد']);
+        }
 
-    //     $request->session()->put('coupon', ['code' => $coupon->code, 'percent' => $coupon->percentage]);
-    //     return redirect()->route('cart.index');
-    // }
+        if (Order::where('user_id', Auth::id())->where('coupon_id', $coupon->id)->where('payment_status', 1)->exists()) {
+            return redirect()->route('cart.index')->withErrors(['code' => 'شما قبلا از این کد تخفیف استفاده کرده اید']);
+        }
+
+        $request->session()->put('coupon', ['code' => $coupon->code, 'percent' => $coupon->percentage]);
+        return redirect()->route('cart.index')->with('success', 'کد تخفیف ثبت شد .');
+    }
+    public function removeCoupon(Request $request)
+    {
+        $request->session()->put('coupon', []);
+        return redirect()->route('cart.index')->with('success', 'کد تخفیف حذف شد .');
+    }
 }

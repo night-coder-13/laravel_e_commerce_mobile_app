@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/remove', [CartController::class, 'remove'])->name('cart.remove');
         Route::get('/clear', [CartController::class, 'clear'])->name('cart.clear');
         Route::get('/check-coupon', [CartController::class, 'checkCoupon'])->name('cart.checkCoupon');
+        Route::get('/remove-coupon', [CartController::class, 'removeCoupon'])->name('cart.removeCoupon');
     });
 
     Route::prefix('wishlist')->group(function () {
