@@ -3,7 +3,7 @@
 @section('title', 'دسته بندی محصولات')
 
 @section('header')
-    @include('body.navbar')
+    @include('home.navbar')
 @endsection
 
 @section('content')
@@ -25,24 +25,24 @@
                             <div class="single-profile-data d-flex align-items-center justify-content-between">
                                 <div class="title d-flex align-items-center"><i class="ti ti-user"></i><span>
                                         نام</span></div>
-                                <div class="data-content">سارا جبلی</div>
+                                <div class="data-content">{{ auth()->user()->name }}</div>
                             </div>
                             <div class="single-profile-data d-flex align-items-center justify-content-between">
                                 <div class="title d-flex align-items-center"><i class="ti ti-mail"></i><span>ایمیل
                                         </span></div>
-                                <div class="data-content">sara@gmail.com</div>
+                                <div class="data-content">{{ auth()->user()->email }}</div>
                             </div>
                             <div class="single-profile-data d-flex align-items-center justify-content-between">
                                 <div class="title d-flex align-items-center"><i class="ti ti-phone"></i><span>تلفن</span>
                                 </div>
-                                <div class="data-content">+98 000 111 222</div>
+                                <div class="data-content">{{ auth()->user()->phone }}</div>
                             </div>
                             <div class="single-profile-data d-flex align-items-center justify-content-between">
                                 <div class="title d-flex align-items-center"><i
-                                        class="ti ti-ship"></i><span>آدرس:</span></div>
-                                <div class="data-content">ایران، اصفهان، برخوار</div>
+                                        class="ti ti-map"></i><span>آدرس:</span></div>
+                                <div class="data-content">{{ auth()->user()->address }}</div>
                             </div>
-                            <!-- Edit Address--><a class="btn btn-primary w-100" href="edit-profile.html">ویرایش اطلاعات</a>
+                            <!-- Edit Address--><a class="btn btn-primary w-100" href="{{ route('profile.edit') }}">ویرایش اطلاعات</a>
                         </div>
                     </div>
                 </div>
@@ -67,11 +67,6 @@
                                         <label for="fastShipping">پست <span>(1 تا 3 روز کاری 35،000 ت)</span></label>
                                         <div class="check"></div>
                                     </li>
-                                    <li>
-                                        <input id="fastShipping" type="radio" name="selector">
-                                        <label for="fastShipping">پست پیشتاز <span>(1 تا 2 روز کاری 43،000 ت)</span></label>
-                                        <div class="check"></div>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -79,9 +74,32 @@
                 </div>
                 <!-- Cart Amount Area-->
                 <div class="card cart-amount-area">
+                    @if ($coupnPrice != 0)
+                            <div class="card-body ">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span class="text-end">مبلغ تخفیف</span>
+                                        <span class="text-start">{{ number_format($coupnPrice) }} تومان</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span class="text-end">مبلغ بدون تخفیف</span>
+                                        <span class="text-start">{{ number_format($cart_total_price) }} تومان</span>
+                                    </li>
+                                </ul>
+                               
+                            </div>
+                        @endif
                     <div class="card-body d-flex align-items-center justify-content-between">
-                        <h5 class="total-price mb-0">ریال<span class="counter">1,140,255</span></h5><a class="btn btn-primary"
-                            href="checkout-payment.html">پرداخت</a>
+                        <h6 class="total-price mb-0">قابل پرداخت 
+                            <img src="{{ asset('img/toman_d.svg') }}" width="16px" class="light" alt="">
+                                <img src="{{ asset('img/toman_l.svg') }}" width="16px" class="dark" alt="">
+                            <span class="counter">{{ number_format($cart_total_price - $coupnPrice) }}</span>
+                        </h6>
+                        <a class="btn btn-primary" href="{{ route('payment.send') }}">پرداخت</a>
+                        {{-- <form action="{{ route('payment.send') }}">
+                            <input type="hidden">
+                            <button class="btn btn-primary" type="submit">پرداخت</button>
+                        </form> --}}
                     </div>
                 </div>
             </div>

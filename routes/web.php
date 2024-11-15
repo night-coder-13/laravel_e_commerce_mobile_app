@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WishlistController;
@@ -42,6 +43,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/clear', [CartController::class, 'clear'])->name('cart.clear');
         Route::get('/check-coupon', [CartController::class, 'checkCoupon'])->name('cart.checkCoupon');
         Route::get('/remove-coupon', [CartController::class, 'removeCoupon'])->name('cart.removeCoupon');
+
+        Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
     });
 
     Route::prefix('wishlist')->group(function () {
@@ -51,18 +54,18 @@ Route::middleware('auth')->group(function () {
         Route::get('/clear', [WishlistController::class, 'clear'])->name('wishlist.clear');
         Route::get('/add-to-cart', [WishlistController::class, 'addcart'])->name('wishlist.addcart');
     });
+
+    Route::prefix('payment')->group(function () {
+        Route::get('/send', [PaymentController::class, 'send'])->name('payment.send');
+        Route::get('/verify', [PaymentController::class, 'verify'])->name('payment.verify');
+        Route::get('/status', [PaymentController::class, 'status'])->name('payment.status');
+    });
 });
 
 Route::get('/sub-category', function () {
     return view('subCategory');
 })->name('subCategory');
 
-
-
-Route::get('/checkout', function () {
-    $pageTitle = 'صورت حساب';
-    return view('checkout', compact('pageTitle'));
-})->name('checkout');
 
 Route::get('/settings', function () {
     $pageTitle = 'تنظیمات';

@@ -90,7 +90,7 @@
                                 <span class="counter">
                                     {{ number_format($cart_total_price - $coupnPrice) }}</span>
                             </h6>
-                            <a class="btn btn-primary" href="">صورت حساب</a>
+                            <a class="btn btn-primary" href="{{ route('cart.checkout') }}">صورت حساب</a>
                         </div>
                     </div>
                 </div>

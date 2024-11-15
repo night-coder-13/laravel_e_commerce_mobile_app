@@ -27,6 +27,28 @@ class CartController extends Controller
         }
         return view('cart.index', compact('cart', 'cart_total_price', 'pageTitle'));
     }
+    public function checkout(Request $request)
+    {
+        $pageTitle = 'تکمیل سفارش';
+        // $addresses = Auth::user()->addresses;
+        $cart = $request->session()->get('cart');
+        $cart_total_price = 0;
+        if (isset($cart)) {
+            foreach ($cart as $key => $item) {
+                $price = $item['sale_price'] != 0 && checkSaleFrom($item['date_on_sale_from']) && checkSaleTo($item['date_on_sale_to'])
+                    ? $item['sale_price'] : $item['price'];
+                $cart_total_price += $price * $item['qty'];
+            }
+        }
+        $coupnPrice = 0;
+        if (request()->session()->has('coupon') && request()->session()->get('coupon') !== []) {
+            $coupon = request()->session()->get('coupon');
+            $couponCode = $coupon['code'];
+            $couponPercent = $coupon['percent'];
+            $coupnPrice = ($cart_total_price * $couponPercent) / 100;
+        }
+        return view('cart.checkout', compact('coupnPrice', 'cart_total_price', 'pageTitle'));
+    }
     public function increment(Request $request)
     {
         $request->validate([
