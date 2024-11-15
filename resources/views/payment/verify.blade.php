@@ -17,7 +17,7 @@
                         <i class="ti ti-circle-check mb-3" style="font-size: 8rem;color:rgb(12, 234, 90);"></i>
                         <h6> تراکنش با موفقیت انجام شد!</h6>
                         <p>کد پیگیری : {{ $transId }}</p>
-                        <a class="btn btn-primary btn-sm mt-3" href="{{ route('profile') }}">بازگشت به پروفایل</a>
+                        <a class="btn btn-primary btn-sm mt-3" href="{{ route('home') }}">بازگشت به صفحه‌اصلی</a>
                     @else
                         <i class="ti ti-mood-sad" style="font-size: 8rem;"></i>
                         <h6> تراکنش با خطا مواجه شد!</h6>

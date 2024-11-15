@@ -6,12 +6,20 @@ use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\sizingProducts;
+use App\Services\ProductStockService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+    protected $productStockService;
+
+    public function __construct(ProductStockService $productStockService)
+    {
+        $this->productStockService = $productStockService;
+    }
+
     public function index(Request $request)
     {
         $pageTitle = 'سبد خرید';
@@ -25,6 +33,7 @@ class CartController extends Controller
                 $cart_total_price += $price * $item['qty'];
             }
         }
+
         return view('cart.index', compact('cart', 'cart_total_price', 'pageTitle'));
     }
     public function checkout(Request $request)
@@ -58,7 +67,15 @@ class CartController extends Controller
         $product = Product::findOrFail($request->product_id);
 
         $cart = $request->session()->get('cart', []);
-
+        $sizingProducts = ['size' => null, 'color' => null];
+        if ($product->quantity === 0) {
+            $size = sizingProducts::where('quantity', '>', 1)->where('product_id', $request->product_id)->first();
+            if (!$size) {
+                return redirect()->back()->with('error', 'محصول موجود نیست!!');
+            }
+            $sizingProducts['size'] = $size->size;
+            $sizingProducts['color'] = $size->color;
+        }
         // بررسی اینکه آیا محصول در سبد خرید موجود است و تعداد آن بیشتر از موجودی نیست
         if (isset($cart[$request->product_id])) {
             if ($cart[$request->product_id]['qty'] >= $product->quantity) {
@@ -77,7 +94,9 @@ class CartController extends Controller
                 'primary_image' => $product->primary_image,
                 'date_on_sale_from' => $product->date_on_sale_from,
                 'date_on_sale_to' => $product->date_on_sale_to,
-                'qty' => 1
+                'qty' => 1,
+                "size" => $sizingProducts['size'],
+                "color" => $sizingProducts['color'],
             ];
         }
 
@@ -130,38 +149,10 @@ class CartController extends Controller
 
         $product = Product::findOrFail($request->product_id);
 
-        if ($product->quantity === 0) {
-            $sizes = $product->sizes;
-            if ($sizes->isEmpty()) {
-                return redirect()->back()->with('error', 'تعداد محصول مورد نظر بیشتر از موجودی می باشد');
-            }
-            // اگر سایز انتخاب شده ولی رنگ انتخاب نشده، هشدار بده
-            if ($request->filled('size') && !$request->filled('color')) {
-                return redirect()->back()->with('error', 'لطفا در صورت انتخاب سایز، رنگ را نیز انتخاب کنید.');
-            } elseif (!$request->filled('size') && !$request->filled('color')) {
-                return redirect()->back()->with('error', 'لطفا سایز و رنگ محصول را انتخاب کنید.');
-            }
-
-            // جستجوی محصول با سایز و رنگ خاص (در صورتی که هیچ‌کدام یکی وارد شده باشند مشکلی پیش نمی‌آید)
-            $query = sizingProducts::query();
-
-            if ($request->filled('size')) {
-                $query->where('size', $request->size);
-            }
-
-            if ($request->filled('color')) {
-                $query->where('color', $request->color);
-            }
-
-            $item = $query->first();
-
-            if (!$item) {
-                return redirect()->back()->with('error', 'اطلاعات ناقص ارسال شده است! لطفاً رنگ و یا سایز انتخابی را دوباره چک کنید.');
-            }
-
-            if ($request->qty > $item->quantity) {
-                return redirect()->back()->with('error', 'تعداد محصول مورد نظر بیشتر از موجودی می باشد');
-            }
+        // چک کردن موجودی محصول
+        $response = $this->productStockService->checkStock($product, $request);
+        if ($response) {
+            return $response; // ارجاع دادن در صورت وجود خطا
         }
 
         $cart = $request->session()->get('cart', []);

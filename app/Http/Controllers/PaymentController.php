@@ -5,12 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Product;
+use App\Services\ProductStockService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
+    protected $productStockService;
+
+    public function __construct(ProductStockService $productStockService)
+    {
+        $this->productStockService = $productStockService;
+    }
+
+
     public function send(Request $request)
     {
         if (!$request->session()->has('cart')) {
@@ -23,8 +32,10 @@ class PaymentController extends Controller
         foreach ($cart as $key => $orderItem) {
             $product = Product::findOrFail($key);
 
-            if ($product->quantity < $orderItem['qty']) {
-                return redirect()->route('cart.index')->with('error', 'تعداد محصول وارد شده اشتباه است');
+            // چک کردن موجودی محصول
+            $response = $this->productStockService->checkStockIOrder($product, $orderItem);
+            if ($response) {
+                return $response; // ارجاع دادن در صورت وجود خطا
             }
 
             $totalAmount += $product->is_sale ? $product->sale_price * $orderItem['qty'] : $product->price * $orderItem['qty'];
@@ -59,7 +70,7 @@ class PaymentController extends Controller
         $amount = $payingAmount . '0';
         $redirect = env('PAY_IR_CALLBACK_URL');
 
-        $result = $this->sendRequest($api, $amount, $redirect); 
+        $result = $this->sendRequest($api, $amount, $redirect);
         $result = json_decode($result);
 
         if ($result->status) {
@@ -142,9 +153,9 @@ class PaymentController extends Controller
             'transId' => 'nullable'
         ]);
         $pageTitle = 'تراکنش';
-        
+
         $status =  $request->status;
         $transId =  $request->has('transId') ? $request->transId : null;
-        return view('payment.verify', compact('status', 'transId' ,'pageTitle'));
+        return view('payment.verify', compact('status', 'transId', 'pageTitle'));
     }
 }
