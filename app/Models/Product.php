@@ -16,19 +16,6 @@ class Product extends Model
     // تغیرر مقدار وضعیت در حالت ناموجودی
     public function getStatusAttribute()
     {
-        // if ($this->quantity === 0) {
-        //     $sizeEntry = sizingProducts::where('quantity', '>', 1)
-        //         ->where('product_id', $this->id)
-        //         ->first();
-        //     if (!$sizeEntry) {
-        //         return false; // اگر سایز موجود نیست، وضعیت False
-        //     }
-        //     return true; // اگر سایز موجود است
-        // } elseif ($this->quantity > 0) {
-        //     return true; // محصول موجود است
-        // } else {
-        //     return false; // وضعیت پیش‌فرض
-        // }
         if ($this->quantity > 0) {
             return true;
         }
