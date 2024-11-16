@@ -3,7 +3,7 @@
 @section('title', 'ورود | ثبت نام')
 
 @section('header')
-    @include('wishlist.navbar')
+    @include('home.navbar')
 @endsection
 
 @section('content')

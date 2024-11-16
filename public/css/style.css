@@ -3526,7 +3526,9 @@ img.light {
 .single-order-status.active .order-status i {
   color: #00b894;
 }
-
+.cursor-pointer{
+  cursor: pointer !important;
+}
 .order-success-wrapper {
   position: relative;
   width: 100%;

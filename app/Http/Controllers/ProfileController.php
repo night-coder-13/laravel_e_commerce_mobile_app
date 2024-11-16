@@ -2,27 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $user = Auth::user();
         $pageTitle = 'پروفایل';
-        return view('profile.index', compact('pageTitle' , 'user'));
+        return view('profile.index', compact('pageTitle', 'user'));
     }
-    public function order(){
+    public function order()
+    {
         $pageTitle = 'سفارشات';
-        return view('profile.order', compact('pageTitle'));
+        $orders = Order::where('user_id', Auth::user()->id)->with(['orderItems'])->get();
+        return view('profile.order', compact('pageTitle', 'orders'));
     }
-    public function edit(){
+    public function edit()
+    {
         $user = Auth::user();
         $pageTitle = 'پروفایل';
-        return view('profile.edit', compact('pageTitle' , 'user'));
+        return view('profile.edit', compact('pageTitle', 'user'));
     }
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         // $user = User::findOrFail(Auth::user()->id);
         // $request->validate([
         //     'phone'=> 'required|numeric',
@@ -37,6 +43,6 @@ class ProfileController extends Controller
         // ]);
 
         // Auth::login($user , $remember = true);
-        return redirect()->route('profile')->with('success','ویرایش اطلاعات کاربر مهمان قابل ویرایش نیست !');
+        return redirect()->route('profile')->with('success', 'ویرایش اطلاعات کاربر مهمان قابل ویرایش نیست !');
     }
 }

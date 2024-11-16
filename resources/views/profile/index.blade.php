@@ -53,7 +53,7 @@
                         <div class="single-profile-data d-flex align-items-center justify-content-between">
                             <div class="title d-flex align-items-center"><i class="ti ti-star-filled"></i><span>
                                     سفارشات</span></div>
-                            <div class="data-content"><a class="btn btn-primary btn-sm" href="my-order.html">مشاهده</a>
+                            <div class="data-content"><a class="btn btn-primary btn-sm" href="{{ route('profile.order') }}">مشاهده</a>
                             </div>
                         </div>
                         <!-- Edit Profile-->

@@ -11,51 +11,41 @@
     <div class="internet-connection-status" id="internetStatus"></div>
     <div class="page-content-wrapper">
         <div class="container">
+            <br>
             <div class="card ">
                 <div class="card-body p-4">
                     <!-- Single Order Status-->
-                    <div class="single-order-status active" data-bs-toggle="collapse" data-bs-target="#details1"
-                        aria-expanded="false" aria-controls="details1">
-                        <div class="order-icon">
-                            <i class="ti ti-basket"></i>
-                        </div>
-                        <div class="order-text">
-                            <h6>سفارش</h6>
-                            <span>2 Feb 2024 - 12:38 PM</span>
-                        </div>
-                        <div class="order-status">
-                            <i class="ti ti-circle-check"></i>
-                        </div>
+                    @foreach ($orders as $order)
+                        <div class="single-order-status cursor-pointer {{ $order->getRawOriginal('status') ? 'active' :'' }}" data-bs-toggle="collapse" data-bs-target="#details1"
+                            aria-expanded="false" aria-controls="details1">
+                            <div class="order-icon">
+                                <i class="ti ti-basket"></i>
+                            </div>
+                            <div class="order-text">
+                                <h6>{{ $order->status }}</h6>
+                                <span style="direction: rtl;">{{ verta($order->created_at)->format('d F Y') }}</span>
+                            </div>
+                            <div class="order-status">
+                                <i class="ti ti-circle-check"></i>
+                            </div>
 
-                    </div>
-                    <!-- Dropdown Content -->
-                    <div class="collapse" id="details1">
-                        <div class="order-details">
-                            <p>جزئیات بیشتر.</p>
                         </div>
-                    </div>
-
-                    <!-- Single Order Status-->
-                    <div class="single-order-status active" data-bs-toggle="collapse" data-bs-target="#details2"
-                        aria-expanded="false" aria-controls="details2">
-                        <div class="order-icon">
-                            <i class="ti ti-basket"></i>
+                        <!-- Dropdown Content -->
+                        <div class="collapse" id="details1">
+                            <div class="order-details">
+                                <div class="card-body ">
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <span class="text-end">مبلغ تخفیف</span>
+                                            <span class="text-start">{{ number_format($coupnPrice) }} تومان</span>
+                                        </li>
+                                        
+                                    </ul>
+                                   
+                                </div>
+                            </div>
                         </div>
-                        <div class="order-text">
-                            <h6>Order placed</h6><span>2 Feb 2024 - 12:38 PM</span>
-                        </div>
-                        <div class="order-status">
-                            <i class="ti ti-circle-check"></i>
-                        </div>
-
-                    </div>
-                    <!-- Dropdown Content -->
-                    <div class="collapse" id="details2">
-                        <div class="order-details">
-                            <p>Additional details about order placed.</p>
-                        </div>
-                    </div>
-
+                    @endforeach
                 </div>
             </div>
 
