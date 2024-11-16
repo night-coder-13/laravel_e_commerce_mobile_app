@@ -63,6 +63,11 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+Route::get('/chat', function () {
+    $pageTitle = 'گفتگو با پشتیبانی';
+    return view('chat.index', compact('pageTitle'));
+})->name('chat');
+
 Route::get('/sub-category', function () {
     return view('subCategory');
 })->name('subCategory');
