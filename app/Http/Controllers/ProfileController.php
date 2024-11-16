@@ -13,6 +13,10 @@ class ProfileController extends Controller
         $pageTitle = 'پروفایل';
         return view('profile.index', compact('pageTitle' , 'user'));
     }
+    public function order(){
+        $pageTitle = 'سفارشات';
+        return view('profile.order', compact('pageTitle'));
+    }
     public function edit(){
         $user = Auth::user();
         $pageTitle = 'پروفایل';
