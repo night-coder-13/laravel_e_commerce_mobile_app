@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\sizingProducts;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,8 @@ class OrderController extends Controller
                 'product_id' => $product->id,
                 'price' => $product->is_sale ? $product->sale_price : $product->price,
                 'quantity' => $orderItem['qty'],
+                'size' => $orderItem['size'],
+                'color' => $orderItem['color'],
                 'subtotal' => $product->is_sale ? ($product->sale_price * $orderItem['qty']) : ($product->price * $orderItem['qty'])
             ]);
         }
@@ -66,9 +69,16 @@ class OrderController extends Controller
 
         foreach (OrderItem::where('order_id', $order->id)->get() as $item) {
             $product = Product::find($item->product_id);
-            $product->update([
-                'quantity' => ($product->quantity -  $item->quantity)
-            ]);
+            if($product->quantity === 0){
+                $product_s= sizingProducts::where('product_id' , $item->product_id)->where('size' , $item->size)->where('color' ,$item->color)->first();
+                $product_s->update([
+                    'quantity' => ($product_s->quantity -  $item->quantity)
+                ]);
+            }else{
+                $product->update([
+                    'quantity' => ($product->quantity -  $item->quantity)
+                ]);
+            }
         }
 
         DB::commit();

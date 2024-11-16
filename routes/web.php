@@ -37,7 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('cart')->group(function () {
         Route::get('/', [CartController::class, 'index'])->name('cart.index');
         Route::get('/increment', [CartController::class, 'increment'])->name('cart.increment');
-        Route::get('/decrement', [CartController::class, 'decrement'])->name('cart.decrement');
+        Route::get('/increment/cart', [CartController::class, 'incrementCart'])->name('cart.increment.cart');
+        Route::get('/decrement/cart', [CartController::class, 'decrementCart'])->name('cart.decrement.cart');
         Route::get('/add', [CartController::class, 'add'])->name('cart.add');
         Route::get('/remove', [CartController::class, 'remove'])->name('cart.remove');
         Route::get('/clear', [CartController::class, 'clear'])->name('cart.clear');

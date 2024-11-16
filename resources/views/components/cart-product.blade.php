@@ -27,10 +27,10 @@
                 <!-- qty -->
                 <div class="cart-form float-end mt-1">
                     <div class="order-plus-minus d-flex align-items-center">
-                        <div class="quantity-button-handler">-</div>
+                        <a href="{{ route('cart.decrement.cart' , ['product_id'=>$key ]) }}" class="quantity-button-handler">-</a>
                         <input class="form-control cart-quantity-input" type="text" step="1" name="qty"
                             value="{{ $item['qty'] }}">
-                        <div class="quantity-button-handler">+</div>
+                        <a href="{{ route('cart.increment.cart' , ['product_id'=>$key]) }}" class="quantity-button-handler">+</a>
                     </div>
                 </div>
             </div>

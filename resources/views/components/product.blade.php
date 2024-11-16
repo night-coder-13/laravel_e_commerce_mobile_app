@@ -4,6 +4,9 @@
     @if ($item->sale_price != 0 && checkSaleFrom($item->date_on_sale_from) && checkSaleTo($item->date_on_sale_to))
         <span class="badge rounded-pill badge-warning">ویژه</span>
     @endif
+    @if (!$item->status)
+        <span class="badge rounded-pill badge-danger">ناموجود</span>
+    @endif
     <!-- Wishlist Button-->
     <a class="wishlist-btn" href="{{ route('wishlist.add', ['id' => $item->id]) }}">
         <i class="ti ti-heart"> </i>

@@ -23,7 +23,6 @@ class CartController extends Controller
     public function index(Request $request)
     {
         $pageTitle = 'سبد خرید';
-        // $addresses = Auth::user()->addresses;
         $cart = $request->session()->get('cart');
         $cart_total_price = 0;
         if (isset($cart)) {
@@ -63,26 +62,27 @@ class CartController extends Controller
         $request->validate([
             'product_id' => 'required|integer|exists:products,id'
         ]);
-
         $product = Product::findOrFail($request->product_id);
-
         $cart = $request->session()->get('cart', []);
-        $sizingProducts = ['size' => null, 'color' => null];
-        if ($product->quantity === 0) {
-            $size = sizingProducts::where('quantity', '>', 1)->where('product_id', $request->product_id)->first();
-            if (!$size) {
-                return redirect()->back()->with('error', 'محصول موجود نیست!!');
-            }
-            $sizingProducts['size'] = $size->size;
-            $sizingProducts['color'] = $size->color;
+
+        $size = null;
+        $color = null;
+
+        // چک کردن موجودی محصول
+        $response = $this->productStockService->productInStock($request->product_id);
+        if (is_array($response)) {
+            $size = $response['size'];
+            $color = $response['color'];
+        } elseif ($response != true) {
+            return $response; // ارجاع دادن در صورت وجود خطا
         }
-        // بررسی اینکه آیا محصول در سبد خرید موجود است و تعداد آن بیشتر از موجودی نیست
+
+        // بررسی و تنظیم محصول در سبد خرید
         if (isset($cart[$request->product_id])) {
             if ($cart[$request->product_id]['qty'] >= $product->quantity) {
                 return redirect()->back()->with('error', 'محصول با بیشترین تعداد ممکن به سبد خرید اضافه شده است.');
-            } else {
-                $cart[$request->product_id]['qty']++;
             }
+            $cart[$request->product_id]['qty']++;
         } else {
             $cart[$request->product_id] = [
                 'name' => $product->name,
@@ -95,8 +95,8 @@ class CartController extends Controller
                 'date_on_sale_from' => $product->date_on_sale_from,
                 'date_on_sale_to' => $product->date_on_sale_to,
                 'qty' => 1,
-                "size" => $sizingProducts['size'],
-                "color" => $sizingProducts['color'],
+                'size' => $size,
+                'color' => $color,
             ];
         }
 
@@ -105,39 +105,61 @@ class CartController extends Controller
 
         return redirect()->back()->with('success', 'محصول "' . $product->name . '" به سبد خرید اضافه شد.');
     }
-    // public function decrement(Request $request)
-    // {
-    //     $request->validate([
-    //         'product_id' => 'required|integer|exists:products,id',
-    //         'qty' => 'required|integer'
-    //     ]);
+    public function incrementCart(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required|integer|exists:products,id'
+        ]);
 
-    //     $product = Product::findOrFail($request->product_id);
+        $product = Product::findOrFail($request->product_id);
 
-    //     if ($request->qty == 0) {
-    //         return redirect()->back()->with('error', 'تعداد محصول مورد نظر کمتر از حد مجاز می باشد');
-    //     }
+        $cart = $request->session()->get('cart', []);
 
-    //     $cart = $request->session()->get('cart', []);
+        // بررسی اینکه آیا محصول در سبد خرید موجود است و تعداد آن بیشتر از موجودی نیست
+        if (isset($cart[$request->product_id])) {
+            if ($product->quantity === 0) {
+                $size = sizingProducts::where('size', $cart[$request->product_id]['size'])->where('color', $cart[$request->product_id]['color'])->where('product_id', $request->product_id)->first();
+                if ($cart[$request->product_id]['qty'] >= $size->quantity) {
+                    return redirect()->back()->with('error', 'محصول با بیشترین تعداد ممکن به سبد خرید اضافه شده است.');
+                } else {
+                    $cart[$request->product_id]['qty']++;
+                }
+            } else {
 
-    //     if (isset($cart[$product->id])) {
+                if ($cart[$request->product_id]['qty'] >= $product->quantity) {
+                    return redirect()->back()->with('error', 'محصول با بیشترین تعداد ممکن به سبد خرید اضافه شده است.');
+                } else {
+                    $cart[$request->product_id]['qty']++;
+                }
+            }
+        }
 
-    //         $cart[$product->id] = [
-    //             "name" => $product->name,
-    //             "slug" => $product->slug,
-    //             "quantity" => $product->quantity,
-    //            // "is_sale" => $product->is_sale,
-    //             "price" => $product->price,
-    //             "sale_price" => $product->sale_price,
-    //             "primary_image" => $product->primary_image,
-    //             "qty" => $cart[$product->id]["qty"] - 1,
-    //         ];
-    //     }
+        // به‌روزرسانی سبد خرید در جلسه
+        $request->session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'محصول "' . $product->name . '" به سبد خرید اضافه شد.');
+    }
+    public function decrementCart(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required|integer|exists:products,id',
+        ]);
 
-    //     $request->session()->put('cart', $cart);
+        $product = Product::findOrFail($request->product_id);
 
-    //     return redirect()->back()->with('success', 'تعداد محصول مورد نظر از سبد خرید کاهش یافت');
-    // }
+        $cart = $request->session()->get('cart', []);
+
+        if (isset($cart[$product->id])) {
+            if ($cart[$request->product_id]['qty'] <= 1) {
+                return redirect()->back()->with('error', 'تعداد محصول مورد نظر کمتر از حد مجاز می باشد');
+            } else {
+                $cart[$request->product_id]['qty']--;
+            }
+        }
+
+        $request->session()->put('cart', $cart);
+
+        return redirect()->back()->with('success', 'تعداد محصول مورد نظر از سبد خرید کاهش یافت');
+    }
     public function add(Request $request)
     {
         $request->validate([
@@ -149,7 +171,7 @@ class CartController extends Controller
 
         $product = Product::findOrFail($request->product_id);
 
-        // چک کردن موجودی محصول
+        // چک کردن موجودی محصول و برسی کردن صحیح بودن محتوا ورودی
         $response = $this->productStockService->checkStock($product, $request);
         if ($response) {
             return $response; // ارجاع دادن در صورت وجود خطا

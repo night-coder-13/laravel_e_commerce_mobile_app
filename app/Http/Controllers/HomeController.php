@@ -21,6 +21,7 @@ class HomeController extends Controller
         ->where('date_on_sale_to', '>=', Carbon::now())
         ->limit(6)->get();
 
+        
         // dd($offer , $salesProducts ,$popularityProducts);
         return view('home.index', compact('salesProducts' , 'popularityProducts' , 'collections' , 'categories' ,'offer'));
     }

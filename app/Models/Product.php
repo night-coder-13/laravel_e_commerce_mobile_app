@@ -8,27 +8,60 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasFactory , SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'products';
     protected $guarded = [];
 
-    public function sizes(){
+    // تغیرر مقدار وضعیت در حالت ناموجودی
+    public function getStatusAttribute()
+    {
+        // if ($this->quantity === 0) {
+        //     $sizeEntry = sizingProducts::where('quantity', '>', 1)
+        //         ->where('product_id', $this->id)
+        //         ->first();
+        //     if (!$sizeEntry) {
+        //         return false; // اگر سایز موجود نیست، وضعیت False
+        //     }
+        //     return true; // اگر سایز موجود است
+        // } elseif ($this->quantity > 0) {
+        //     return true; // محصول موجود است
+        // } else {
+        //     return false; // وضعیت پیش‌فرض
+        // }
+        if ($this->quantity > 0) {
+            return true;
+        }
+        // بررسی وجود سایزهای دیگر محصول با موجودی بالاتر
+        $sizeExists = sizingProducts::where('product_id', $this->id)
+            ->where('quantity', '>', 0)
+            ->exists();
+    
+        return $sizeExists;
+    }
+
+    public function sizes()
+    {
         return $this->hasMany(sizingProducts::class);
     }
-    public function images(){
+    public function images()
+    {
         return $this->hasMany(ProductImage::class);
     }
-    public function comments(){
-        return $this->hasMany(Comment::class)->where('status' , 1);
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->where('status', 1);
     }
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
-    public function collection(){
+    public function collection()
+    {
         return $this->belongsTo(collections::class);
     }
-    public function brand(){
+    public function brand()
+    {
         return $this->belongsTo(Brands::class);
     }
 }

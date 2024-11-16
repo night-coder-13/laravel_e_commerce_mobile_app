@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\sizingProducts;
 
@@ -49,22 +50,22 @@ class ProductStockService
         if ($product->quantity === 0) {
             $sizes = $product->sizes;
             if ($sizes->isEmpty()) {
-                return redirect()->route('cart.index')->with('error', 'تعداد محصول "'.$orderItem['name'].'" بیشتر از موجودی می باشد');
+                return redirect()->route('cart.index')->with('error', 'تعداد محصول "' . $orderItem['name'] . '" بیشتر از موجودی می باشد');
             }
 
             if ($orderItem['size'] != null && $orderItem['color'] == null) {
-                return redirect()->route('cart.index')->with('error', 'اطلاعات محصول "'.$orderItem['name'].'" ناقص ارسال شده است! لطفاً رنگ و یا سایز انتخابی را دوباره چک کنید.');
-            } elseif ($orderItem['size'] == null && $orderItem['color'] == null ) {
-                return redirect()->route('cart.index')->with('error', 'اطلاعات محصول "'.$orderItem['name'].'" ناقص ارسال شده است! لطفاً رنگ و یا سایز انتخابی را دوباره چک کنید.');
+                return redirect()->route('cart.index')->with('error', 'اطلاعات محصول "' . $orderItem['name'] . '" ناقص ارسال شده است! لطفاً رنگ و یا سایز انتخابی را دوباره چک کنید.');
+            } elseif ($orderItem['size'] == null && $orderItem['color'] == null) {
+                return redirect()->route('cart.index')->with('error', 'اطلاعات محصول "' . $orderItem['name'] . '" ناقص ارسال شده است! لطفاً رنگ و یا سایز انتخابی را دوباره چک کنید.');
             }
 
             $query = sizingProducts::query();
 
-            if ($orderItem['size'] != null ) {
+            if ($orderItem['size'] != null) {
                 $query->where('size', $orderItem['size']);
             }
 
-            if ($orderItem['color'] != null ) {
+            if ($orderItem['color'] != null) {
                 $query->where('color', $orderItem['color']);
             }
 
@@ -75,10 +76,28 @@ class ProductStockService
             }
 
             if ($orderItem['qty'] > $item->quantity) {
-                return redirect()->route('cart.index')->with('error', 'تعداد محصول "'.$orderItem['name'].'" بیشتر از موجودی می باشد');
+                return redirect()->route('cart.index')->with('error', 'تعداد محصول "' . $orderItem['name'] . '" بیشتر از موجودی می باشد');
             }
         }
 
         return null; // برگرداندن null اگر هیچ مشکلی نباشد
+    }
+    public function productInStock($id)
+    {
+        $product = Product::findOrFail($id);
+
+        if ($product->quantity === 0) {
+            $sizeEntry = sizingProducts::where('quantity', '>', 1)
+                ->where('product_id', $id)
+                ->first();
+            if (!$sizeEntry) {
+                return redirect()->back()->with('error', 'محصول موجود نیست!!');
+            }
+            return ['size' => $sizeEntry->size, 'color' => $sizeEntry->color];
+        } elseif($product->quantity > 0) {
+            return true;
+        }else{
+            return redirect()->back()->with('error', 'محصول موجود نیست!!');
+        }
     }
 }
