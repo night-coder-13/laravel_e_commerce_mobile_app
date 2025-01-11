@@ -3,7 +3,8 @@
 use Carbon\Carbon;
 
 function ImageUrl($image) {
-    return env('ADMIN_PANEL_URL') . env('PUBLIC_URL') . $image;
+    return 'https://laravel-panel.liara.run/images/' . $image;
+    // return env('ADMIN_PANEL_URL') . env('PUBLIC_URL') . $image;
 }
 
 function salePercent($price , $sale){

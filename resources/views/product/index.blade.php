@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', 'فروشگاه ژیلا')
+@section('title', 'فروشگاه صباح')
 
 @section('header')
     @include('product.navbar')

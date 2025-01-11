@@ -22,14 +22,14 @@
     <link rel="apple-touch-icon" sizes="167x167" href="img/icons/icon-167x167.png">
     <link rel="apple-touch-icon" sizes="180x180" href="img/icons/icon-180x180.png">
     <!-- CSS Libraries -->
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/tabler-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/tabler-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/animate.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/nice-select.css') }}">
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/style.css') }}">
     <!-- Web App Manifest -->
     <link rel="manifest" href="manifest.json">
   </head>

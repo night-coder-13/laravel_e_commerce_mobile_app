@@ -8,7 +8,8 @@
             <!-- Catagory Card -->
             <div class="col-3">
                 <div class="card catagory-card active">
-                    <div class="card-body px-2"><a href="catagory.html"><img src="img/core-img/price-tag.png"
+                    <div class="card-body px-2">
+                        <a href="#"><img src="img/core-img/price-tag.png"
                                 alt=""><span>فروش ویژه</span></a></div>
                 </div>
             </div>
