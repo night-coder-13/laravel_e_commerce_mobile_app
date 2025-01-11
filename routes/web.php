@@ -18,6 +18,8 @@ Route::get('/category/{category}', [HomeController::class, 'category'])->name('c
 Route::get('/collection/{collection}', [HomeController::class, 'collection'])->name('collection');
 
 Route::get('/login', [AuthController::class, 'loginForm'])->name('auth.login.form');
+Route::get('/forget-password', [AuthController::class, 'forgetPassword'])->name('auth.forgetPassword');
+Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/login-guest', [AuthController::class, 'loginGuest'])->name('auth.login.guest');

@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', 'فروشگاه ژیلا')
+@section('title', 'فروشگاه صباح')
 
 @section('header')
     @include('home.navbar')
@@ -27,7 +27,11 @@
                                 <span style="direction: rtl;">{{ verta($order->created_at)->format('d F Y') }}</span>
                             </div>
                             <div class="order-status">
-                                <i class="ti ti-circle-check"></i>
+                                @if ($order->getRawOriginal('status') == 3)
+                                    <i class="ti ti-circle-dashed-x text-danger"></i>
+                                @else
+                                    <i class="ti ti-circle-check"></i>
+                                @endif
                             </div>
 
                         </div>
@@ -39,7 +43,8 @@
                                         @foreach ($order->orderItems as $item)
                                             <li class="list-group-item d-flex justify-content-between">
                                                 <span class="text-start">{{ number_format($item->subtotal) }} تومان</span>
-                                                <span class="text-end">{{ $item->product->name }} * {{ $item->quantity }}</span>
+                                                <span class="text-end">{{ $item->product->name }} *
+                                                    {{ $item->quantity }}</span>
                                             </li>
                                         @endforeach
                                     </ul>

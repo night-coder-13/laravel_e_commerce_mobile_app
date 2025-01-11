@@ -39,9 +39,10 @@
                         </form>
                     </div>
                     <!-- Login Meta-->
-                    <div class="login-meta-data"><a class="forgot-password d-block mt-3 mb-1" href="forget-password.html">
+                    <div class="login-meta-data">
+                        <a class="forgot-password d-block mt-3 mb-1" href="{{ route('auth.forgetPassword') }}">
                             !گذرواژه خود را فراموش کرده‌ام</a>
-                        <p class="mb-0">حساب کاربری ندارید؟ <a class="mx-1" href="register.html">ثبت نام</a></p>
+                        <p class="mb-0">حساب کاربری ندارید؟ <a class="mx-1" href="{{ route('auth.register') }}">ثبت نام</a></p>
                     </div>
                     <!-- View As Guest-->
                     <div class="view-as-guest mt-3">

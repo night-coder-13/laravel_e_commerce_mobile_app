@@ -42,6 +42,14 @@ class AuthController extends Controller
         Auth::login($user , $remember = true);
         return redirect()->route('home')->with('success' , 'ورود باموفقیت انجام شد.');
     }
+    public function forgetPassword(){
+        $pageTitle = 'بازیابی حساب';
+        return view('auth.forgetPassword' , compact('pageTitle'));
+    }
+    public function register(){
+        $pageTitle = 'ایجاد حساب';
+        return view('auth.register' , compact('pageTitle'));
+    }
     public function logout(Request $request)
     {
         Auth::logout();

@@ -1,7 +1,7 @@
 <div class="top-products-area py-3">
     <div class="container">
         <div class="section-heading d-flex align-items-center justify-content-between dir-rtl">
-            <h6>بهترین محصولات</h6><a class="btn btn-sm btn-light" href="shop-grid.html">مشاهده همه<i
+            <h6>بهترین محصولات</h6><a class="btn btn-sm btn-light" href="#">مشاهده همه<i
                     class="ms-1 ti ti-arrow-right"></i></a>
         </div>
         <div class="row g-2">
